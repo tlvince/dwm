@@ -3,14 +3,14 @@
 /* appearance */
 static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#444444";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
-static const char selbgcolor[]      = "#005577";
-static const char selfgcolor[]      = "#eeeeee";
+static const char normbgcolor[]     = "#101010";
+static const char normfgcolor[]     = "#777777";
+static const char selbordercolor[]  = "#94bff3";
+static const char selbgcolor[]      = "#000000";
+static const char selfgcolor[]      = "#ffffff";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const Bool showbar           = True;     /* False means no bar */
+static const Bool showbar           = False;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
@@ -22,14 +22,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+	{ "Gimp",     NULL,       NULL,       0,            False,        -1 },
 };
 
 /* layout(s) */
-static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact      = 0.60; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -39,7 +38,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -50,13 +49,19 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "uxterm", NULL };
+static const char *dmenucmd[] = { "dmenu_run_or_raise", NULL };
+static const char *termcmd[]  = { "urxvtc", NULL };
+static const char *clockcmd[] = { "dzen-time", NULL };
+static const char *lockcmd[]  = { "slock", NULL };
+static const char *dmenumenucmd[] = { "dmenu_menu", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = clockcmd } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenumenucmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -74,10 +79,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_w,			 focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_e,			 focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_w,			 tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_e,      tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
