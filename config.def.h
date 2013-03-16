@@ -49,7 +49,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run_or_raise", NULL };
+static const char *dmenucmd[] = { "dmenu_raise_or_run", NULL };
 static const char *termcmd[]  = { "urxvtc", NULL };
 static const char *clockcmd[] = { "dzen-time", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
