@@ -50,7 +50,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_raise_or_run", NULL };
-static const char *termcmd[]  = { "urxvtc", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *clockcmd[] = { "dzen-time", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *dmenumenucmd[] = { "dmenu_menu", NULL };
