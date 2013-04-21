@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include "gaplessgrid.c"
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
@@ -56,6 +57,9 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *clockcmd[] = { "dzen-time", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *dmenumenucmd[] = { "dmenu_menu", NULL };
+static const char *volumeup[]   = { "amixer", "-q", "sset", "Master", "5%+", "unmute", NULL };
+static const char *volumedown[] = { "amixer", "-q", "sset", "Master", "5%-", "unmute", NULL };
+static const char *mute[]       = { "amixer", "-q", "sset", "Master", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -96,6 +100,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0, 					  XF86XK_AudioLowerVolume,   spawn,        	 { .v = volumedown } },
+  { 0, 						XF86XK_AudioRaiseVolume,   spawn,        	 { .v = volumeup } },
+  { 0, 						XF86XK_AudioMute,          spawn,        	 { .v = mute } },
 };
 
 /* button definitions */
